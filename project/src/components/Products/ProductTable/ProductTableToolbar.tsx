@@ -8,7 +8,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDeleteModalOpen, setSelectedProducts } from 'src/actions';
+import {
+  setDeleteModalOpenAction,
+  setSelectedProductsAction,
+} from 'src/actions';
 import { getSelectedProducts } from 'src/selectors';
 import DeletePromptModal from './DeletePromptModal';
 
@@ -64,7 +67,9 @@ const ProductTableToolbar = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title="Delete">
-              <IconButton onClick={() => dispatch(setDeleteModalOpen(true))}>
+              <IconButton
+                onClick={() => dispatch(setDeleteModalOpenAction(true))}
+              >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -72,13 +77,13 @@ const ProductTableToolbar = () => {
         )}
         {selectedProducts.length === 0 && (
           <Tooltip title="Add">
-            <IconButton>
-              <AddIcon
-                onClick={() => {
-                  dispatch(setSelectedProducts([]));
-                  history.push('/add');
-                }}
-              />
+            <IconButton
+              onClick={() => {
+                dispatch(setSelectedProductsAction([]));
+                history.push('/add');
+              }}
+            >
+              <AddIcon />
             </IconButton>
           </Tooltip>
         )}

@@ -6,7 +6,7 @@ import { Product, productSchema } from 'src/models';
 import { getEditProduct } from 'src/selectors';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { setHeaderTitle } from 'src/actions';
+import { setHeaderTitleAction } from 'src/actions';
 
 const ProductForm = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const ProductForm = (): JSX.Element => {
   };
 
   useEffect(() => {
-    dispatch(setHeaderTitle('Product details'));
+    dispatch(setHeaderTitleAction('Product details'));
   }, [dispatch]);
 
   return (
@@ -111,7 +111,7 @@ const ProductForm = (): JSX.Element => {
             <Button
               variant="contained"
               onClick={() => {
-                dispatch(setHeaderTitle('Product list'));
+                dispatch(setHeaderTitleAction('Product list'));
                 history.replace('/');
               }}
             >

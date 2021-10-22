@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  fetchAllProductsDone,
-  setDeleteModalOpen,
-  setSelectedProducts,
+  fetchAllProductsDoneAction,
+  setDeleteModalOpenAction,
+  setSelectedProductsAction,
 } from 'src/actions';
 import { IProductState } from 'src/models/product.model';
 
@@ -14,15 +14,15 @@ export const productInitialState: IProductState = {
 
 export default createReducer(productInitialState, (builder) =>
   builder
-    .addCase(fetchAllProductsDone, (state, { payload }) => ({
+    .addCase(fetchAllProductsDoneAction, (state, { payload }) => ({
       ...state,
       products: payload,
     }))
-    .addCase(setDeleteModalOpen, (state, { payload }) => ({
+    .addCase(setDeleteModalOpenAction, (state, { payload }) => ({
       ...state,
       deleteModalOpen: payload,
     }))
-    .addCase(setSelectedProducts, (state, { payload }) => ({
+    .addCase(setSelectedProductsAction, (state, { payload }) => ({
       actionTriggerRefetching: undefined,
       ...state,
       selectedProducts: payload,

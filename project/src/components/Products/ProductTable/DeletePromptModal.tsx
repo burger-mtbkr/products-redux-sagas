@@ -6,7 +6,7 @@ import { TestIds } from 'src/utils';
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDeleteModalOpen } from 'src/actions';
+import { setDeleteModalOpenAction } from 'src/actions';
 import { getDeleteModalOpen, getSelectedProducts } from 'src/selectors';
 
 const style: SxProps<Theme> = {
@@ -33,7 +33,7 @@ const DeletePromptModal = () => {
   };
 
   const handleClose = () => {
-    dispatch(setDeleteModalOpen(false));
+    dispatch(setDeleteModalOpenAction(false));
   };
 
   return (
