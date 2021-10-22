@@ -13,10 +13,15 @@ import { TestIds } from 'src/utils';
 import { Order, ProductListItem } from 'src/models';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedProducts, selectAllProducts } from 'src/selectors';
-import { fetchAllProducts, setSelectedProducts } from 'src/actions';
+import {
+  getSelectedProducts,
+  getProductsLoadingState,
+  selectAllProducts,
+} from 'src/selectors';
+import { fetchAllProductsAction, setSelectedProductsAction } from 'src/actions';
 import ProductTableToolbar from './ProductTableToolbar';
 import ProductTableHead from './ProductTableHead';
+import LoadingSkeleton from './LoadingSkeleton';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -50,11 +55,11 @@ const ProductTable = () => {
 
   const data = useSelector(selectAllProducts);
   const selected = useSelector(getSelectedProducts);
+  const isLoading = useSelector(getProductsLoadingState);
 
   useEffect(() => {
-    dispatch(fetchAllProducts);
-
-    dispatch(setSelectedProducts([]));
+    dispatch(setSelectedProductsAction([]));
+    dispatch(fetchAllProductsAction());
   }, [dispatch]);
 
   const handleRequestSort = (property: keyof ProductListItem) => {
@@ -67,11 +72,11 @@ const ProductTable = () => {
     if (event.target.checked) {
       const newlySelected = data?.map((n: ProductListItem) => n);
       if (newlySelected) {
-        dispatch(setSelectedProducts(newlySelected));
+        dispatch(setSelectedProductsAction(newlySelected));
       }
       return;
     }
-    dispatch(setSelectedProducts([]));
+    dispatch(setSelectedProductsAction([]));
   };
 
   const handleClick = (product: ProductListItem) => {
@@ -90,7 +95,7 @@ const ProductTable = () => {
         selected.slice(selectedIndex + 1),
       );
     }
-    dispatch(setSelectedProducts(newSelected));
+    dispatch(setSelectedProductsAction(newSelected));
   };
 
   const handleChangePage = (newPage: number) => {
@@ -119,7 +124,9 @@ const ProductTable = () => {
     return 0;
   };
 
-  return (
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <Box sx={{ width: '100%' }} data-testid={TestIds.productTable}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <ProductTableToolbar />

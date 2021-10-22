@@ -1,29 +1,33 @@
 import { SagaIterator } from 'redux-saga';
-import { call, takeLatest, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { ProductListItem } from 'src/models/product.model';
+import { IFetchProductResponse } from 'src/models/product.model';
 import { getAllProducts } from 'src/api';
-import { fetchAllProductsDone } from 'src/actions';
+import {
+  fetchAllProductsDoneAction,
+  fetchAllProductsAction,
+  isLoading,
+} from 'src/actions';
 
-export const fetchProductsSaga = () =>
-  function* (): SagaIterator {
-    yield takeLatest(fetchAllProductsDone, function* (): SagaIterator {
-      try {
-        const response: ProductListItem[] = yield call(getAllProducts);
+export function* fetchAllProductsAsync(): SagaIterator {
+  try {
+    yield put(isLoading(true));
+    const response: IFetchProductResponse = yield call(getAllProducts);
 
-        if (response) {
-          yield put(fetchAllProductsDone(response));
-        } else {
-          // yield put({ type: 'TODO_FETCH_FAILED' });
-          // else put error
-        }
-      } catch (error) {
-        // yield put({ type: 'TODO_FETCH_FAILED' });
-        // else put error
-      }
-    });
-  };
+    yield put(fetchAllProductsDoneAction(response));
+  } catch (error) {
+    yield put(
+      fetchAllProductsDoneAction({
+        products: [],
+        error: error as Error,
+        isSuccessful: false,
+      }),
+    );
+  } finally {
+    yield put(isLoading(false));
+  }
+}
 
-export default function* rootSaga() {
-  yield takeLatest(fetchAllProductsDone, fetchProductsSaga);
+export function* fetchAllProductsSaga(): SagaIterator {
+  yield takeLatest(fetchAllProductsAction, fetchAllProductsAsync);
 }

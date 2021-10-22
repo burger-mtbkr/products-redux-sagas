@@ -1,26 +1,66 @@
-import { ProductListItem } from 'src/models/';
+import {
+  IFetchProductResponse,
+  ISaveProductResponse,
+  Product,
+  ProductListItem,
+  IDeleteProductResponse,
+} from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
-const PREFIX = 'PRODUCT';
+const APP_PREFIX = 'APP';
+const PRODUCT_PREFIX = 'PRODUCT';
 
-export const initApp = createAction(`${PREFIX}_INIT_APP`);
+/* APP STATE */
 
-export const fetchAllProducts = createAction(
-  `${PREFIX}/API/FETCH_ALL_PRODUCTS`,
+export const setDeleteModalOpenAction = createAction<boolean>(
+  `${APP_PREFIX}_SET_DELETE_MODAL_OPEN`,
 );
 
-export const fetchAllProductsDone = createAction<ProductListItem[]>(
-  `${PREFIX}_FETCH_ALL_PRODUCTS_DONE`,
+export const setHeaderTitleAction = createAction<string>(
+  `APP_${APP_PREFIX}_SET_HEADER_TITLE`,
 );
 
-export const setDeleteModalOpen = createAction<boolean>(
-  `${PREFIX}_SET_DELETE_MODAL_OPEN`,
+/* LOAD ALL PRODUCTS */
+
+export const setSelectedProductsAction = createAction<ProductListItem[]>(
+  `${PRODUCT_PREFIX}_SET_SELECTED_PRODUCTS`,
 );
 
-export const setSelectedProducts = createAction<ProductListItem[]>(
-  `${PREFIX}_SET_SELECTED_PRODUCTS`,
+export const isLoading = createAction<boolean>(
+  `${PRODUCT_PREFIX}/API/PRODUCTS_IS_LOADING`,
 );
 
-export const setHeaderTitle = createAction<string>(
-  `APP_${PREFIX}_SET_HEADER_TITLE`,
+export const fetchAllProductsAction = createAction(
+  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS`,
+);
+
+export const fetchAllProductsDoneAction = createAction<IFetchProductResponse>(
+  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS_DONE`,
+);
+
+/* SAVE PRODUCT */
+export const isSavingAction = createAction<boolean>(
+  `${PRODUCT_PREFIX}API/SAVE_PRODUCT_IS_SAVING`,
+);
+
+export const saveProductAction = createAction<Product>(
+  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT`,
+);
+
+export const setSaveProductDoneAction = createAction<ISaveProductResponse>(
+  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_DONE`,
+);
+
+/* DELETE PRODUCT */
+
+export const isDeletingAction = createAction<boolean>(
+  `${PRODUCT_PREFIX}API/DELETE_PRODUCT_IS_DELETING`,
+);
+
+export const deleteProductAction = createAction<string>(
+  `${PRODUCT_PREFIX}/API/DELETE_PRODUCT`,
+);
+
+export const setDeleteProductDoneAction = createAction<IDeleteProductResponse>(
+  `${PRODUCT_PREFIX}/API/DELETE_PRODUCT_DONE`,
 );

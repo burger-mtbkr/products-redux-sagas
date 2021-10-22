@@ -15,7 +15,7 @@ This is a simple CRUD product application to demonstrate using [Redux Saga](http
 - React TypeScript
 - [Material UI](https://mui.com/getting-started/installation/)
 - [React Hook Forms](https://react-hook-form.com)
-- React Testing Library-
+- React Testing Library
 - [Redux Toolkit](https://redux-toolkit.js.org/) - used for local app state like modal open/closed, selected rows etc.
 - [Redux Saga](https://redux-saga.js.org/).
 - [Github Actions](https://github.com/features/actions) for running checks - CI workflow can be seen [here](https://github.com/loanburger/products-redux-saga/blob/main/.github/workflows/build_test_react.yml)

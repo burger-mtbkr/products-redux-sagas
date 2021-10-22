@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setHeaderTitle } from 'src/actions';
+import { setHeaderTitleAction } from 'src/actions';
 import { IAppState } from 'src/models/app.model';
 
 export const appInitialState: IAppState = {
@@ -7,7 +7,7 @@ export const appInitialState: IAppState = {
 };
 
 export default createReducer(appInitialState, (builder) =>
-  builder.addCase(setHeaderTitle, (state, { payload }) => ({
+  builder.addCase(setHeaderTitleAction, (state, { payload }) => ({
     ...state,
     title: payload,
   })),

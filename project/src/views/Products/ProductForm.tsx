@@ -3,17 +3,16 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Product, productSchema } from 'src/models';
-import { getEditProduct } from 'src/selectors';
+import { getEditProduct, getProductSaveResponse } from 'src/selectors';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { setHeaderTitle } from 'src/actions';
+import { saveProductAction, setHeaderTitleAction } from 'src/actions';
 
 const ProductForm = (): JSX.Element => {
   const dispatch = useDispatch();
-
   const history = useHistory();
-
   let productToSave = useSelector(getEditProduct);
+  const saveResponse = useSelector(getProductSaveResponse);
 
   if (!productToSave) {
     productToSave = {
@@ -33,13 +32,19 @@ const ProductForm = (): JSX.Element => {
     resolver: yupResolver(productSchema),
   });
 
-  const onSubmit: SubmitHandler<Product> = (p: Product) => {
-    alert(`TODO Save ${p.name}`);
-    history.push('/');
-  };
+  const onSubmit: SubmitHandler<Product> = (p: Product) =>
+    dispatch(saveProductAction(p));
 
   useEffect(() => {
-    dispatch(setHeaderTitle('Product details'));
+    if (saveResponse?.isSuccessful === true) {
+      history.push('/');
+    } else if (saveResponse?.isSuccessful === false) {
+      alert(`Failed to save`);
+    }
+  }, [saveResponse, history]);
+
+  useEffect(() => {
+    dispatch(setHeaderTitleAction('Product details'));
   }, [dispatch]);
 
   return (
@@ -111,7 +116,7 @@ const ProductForm = (): JSX.Element => {
             <Button
               variant="contained"
               onClick={() => {
-                dispatch(setHeaderTitle('Product list'));
+                dispatch(setHeaderTitleAction('Product list'));
                 history.replace('/');
               }}
             >
