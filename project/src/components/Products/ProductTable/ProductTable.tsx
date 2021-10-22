@@ -13,10 +13,15 @@ import { TestIds } from 'src/utils';
 import { Order, ProductListItem } from 'src/models';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedProducts, selectAllProducts } from 'src/selectors';
+import {
+  getSelectedProducts,
+  getProductsLoadingState,
+  selectAllProducts,
+} from 'src/selectors';
 import { fetchAllProductsAction, setSelectedProductsAction } from 'src/actions';
 import ProductTableToolbar from './ProductTableToolbar';
 import ProductTableHead from './ProductTableHead';
+import LoadingSkeleton from './LoadingSkeleton';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -50,6 +55,7 @@ const ProductTable = () => {
 
   const data = useSelector(selectAllProducts);
   const selected = useSelector(getSelectedProducts);
+  const isLoading = useSelector(getProductsLoadingState);
 
   useEffect(() => {
     dispatch(setSelectedProductsAction([]));
@@ -118,7 +124,9 @@ const ProductTable = () => {
     return 0;
   };
 
-  return (
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <Box sx={{ width: '100%' }} data-testid={TestIds.productTable}>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <ProductTableToolbar />

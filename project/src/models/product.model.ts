@@ -15,6 +15,7 @@ export type ProductListItem = Product & {
 
 export interface IProductState {
   deleteModalOpen: boolean;
+  isLoading: boolean;
   products: ProductListItem[];
   selectedProducts: ProductListItem[];
 }

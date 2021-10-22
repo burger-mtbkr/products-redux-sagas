@@ -1,5 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import { call, takeEvery, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { ProductListItem } from 'src/models/product.model';
 import { getAllProducts } from 'src/api';
@@ -7,19 +7,22 @@ import {
   fetchAllProductsDoneAction,
   fetchAllProductsAction,
   fetchAllProductsFailedAction,
+  isLoading,
 } from 'src/actions';
 
-export function* fetchProductsSaga(): SagaIterator {
-  try {
-    const response: ProductListItem[] = yield call(getAllProducts);
-    if (response) {
-      yield put(fetchAllProductsDoneAction(response));
-    }
-  } catch (error) {
-    yield put(fetchAllProductsFailedAction(error as Error));
-  }
-}
+export function* fetchAllProductsSaga(): SagaIterator {
+  yield put(isLoading(true));
 
-export function* watchFetchProductsSaga(): SagaIterator {
-  yield takeEvery(fetchAllProductsAction, fetchProductsSaga);
+  yield takeLatest(fetchAllProductsAction, function* (): SagaIterator {
+    try {
+      const response: ProductListItem[] = yield call(getAllProducts);
+      if (response) {
+        yield put(fetchAllProductsDoneAction(response));
+      }
+    } catch (error) {
+      yield put(fetchAllProductsFailedAction(error as Error));
+    }
+  });
+
+  yield put(isLoading(false));
 }
