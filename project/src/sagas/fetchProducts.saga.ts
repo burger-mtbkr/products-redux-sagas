@@ -12,7 +12,6 @@ import {
 
 export function* fetchAllProductsSaga(): SagaIterator {
   yield put(isLoading(true));
-
   yield takeLatest(fetchAllProductsAction, function* (): SagaIterator {
     try {
       const response: ProductListItem[] = yield call(getAllProducts);
@@ -21,8 +20,8 @@ export function* fetchAllProductsSaga(): SagaIterator {
       }
     } catch (error) {
       yield put(fetchAllProductsFailedAction(error as Error));
+    } finally {
+      yield put(isLoading(false));
     }
   });
-
-  yield put(isLoading(false));
 }

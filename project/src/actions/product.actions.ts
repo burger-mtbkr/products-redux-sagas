@@ -1,44 +1,50 @@
 import { Product, ProductListItem } from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
-const PREFIX = 'PRODUCT';
+const APP_PREFIX = 'APP';
+const PRODUCT_PREFIX = 'PRODUCT';
 
-export const initApp = createAction(`${PREFIX}_APP_INIT_APP`);
-
-export const isLoading = createAction<boolean>(`${PREFIX}_IS_LOADING`);
+/* APP STATE */
 
 export const setDeleteModalOpenAction = createAction<boolean>(
-  `${PREFIX}_SET_DELETE_MODAL_OPEN`,
-);
-
-export const setSelectedProductsAction = createAction<ProductListItem[]>(
-  `${PREFIX}_SET_SELECTED_PRODUCTS`,
+  `${APP_PREFIX}_SET_DELETE_MODAL_OPEN`,
 );
 
 export const setHeaderTitleAction = createAction<string>(
-  `APP_${PREFIX}_SET_HEADER_TITLE`,
+  `APP_${APP_PREFIX}_SET_HEADER_TITLE`,
+);
+
+/* LOAD ALL PRODUCTS */
+
+export const setSelectedProductsAction = createAction<ProductListItem[]>(
+  `${PRODUCT_PREFIX}_SET_SELECTED_PRODUCTS`,
+);
+
+export const isLoading = createAction<boolean>(
+  `${PRODUCT_PREFIX}/API/PRODUCTS_IS_LOADING`,
 );
 
 export const fetchAllProductsAction = createAction(
-  `${PREFIX}/API/FETCH_ALL_PRODUCTS`,
+  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS`,
 );
 
 export const fetchAllProductsDoneAction = createAction<ProductListItem[]>(
-  `${PREFIX}/API/FETCH_ALL_PRODUCTS_DONE`,
+  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS_DONE`,
 );
 
 export const fetchAllProductsFailedAction = createAction<Error>(
-  `${PREFIX}/API/FETCH_ALL_PRODUCTS_FAILED`,
+  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS_FAILED`,
+);
+
+/* SAVE PRODUCT */
+export const isSavingAction = createAction<boolean>(
+  `${PRODUCT_PREFIX}API/SAVE_PRODUCT_IS_SAVING`,
 );
 
 export const saveProductAction = createAction<Product>(
-  `${PREFIX}/API/SAVE_PRODUCT`,
-);
-
-export const saveProductActionDone = createAction(
-  `${PREFIX}/API/SAVE_PRODUCT_DONE`,
+  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT`,
 );
 
 export const saveProductActionFailed = createAction<Error>(
-  `${PREFIX}/API/SAVE_PRODUCT_FAILED`,
+  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_FAILED`,
 );
