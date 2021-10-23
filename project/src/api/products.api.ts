@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  IDeleteProductResponse,
   IFetchProductResponse,
   ISaveProductResponse,
   Product,
@@ -56,11 +57,13 @@ export const getProduct = async (id: string): Promise<ISaveProductResponse> => {
       };
     }
     return {
+      product: undefined,
       isSuccessful: false,
       error: new Error('An error has occured'),
     };
   } catch (error) {
     return {
+      product: undefined,
       isSuccessful: false,
       error: axios.isAxiosError(error)
         ? error
@@ -95,11 +98,13 @@ export const saveProduct = async (
       };
     }
     return {
+      product,
       isSuccessful: false,
       error: new Error('An error has occured'),
     };
   } catch (error) {
     return {
+      product,
       isSuccessful: false,
       error: axios.isAxiosError(error)
         ? error
@@ -110,7 +115,7 @@ export const saveProduct = async (
 
 export const deleteProduct = async (
   id: string,
-): Promise<ISaveProductResponse> => {
+): Promise<IDeleteProductResponse> => {
   const url = process.env.REACT_APP_API_END_POINT ?? '';
 
   try {
@@ -123,15 +128,18 @@ export const deleteProduct = async (
 
     if (isSuccessfulResponse(response)) {
       return {
+        id,
         isSuccessful: true,
       };
     }
     return {
+      id,
       isSuccessful: false,
       error: new Error('An error has occured'),
     };
   } catch (error) {
     return {
+      id,
       isSuccessful: false,
       error: axios.isAxiosError(error)
         ? error

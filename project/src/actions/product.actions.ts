@@ -3,6 +3,7 @@ import {
   ISaveProductResponse,
   Product,
   ProductListItem,
+  IDeleteProductResponse,
 } from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
@@ -48,4 +49,18 @@ export const saveProductAction = createAction<Product>(
 
 export const setSaveProductDoneAction = createAction<ISaveProductResponse>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_DONE`,
+);
+
+/* DELETE PRODUCT */
+
+export const isDeletingAction = createAction<boolean>(
+  `${PRODUCT_PREFIX}API/DELETE_PRODUCT_IS_DELETING`,
+);
+
+export const deleteProductAction = createAction<string>(
+  `${PRODUCT_PREFIX}/API/DELETE_PRODUCT`,
+);
+
+export const setDeleteProductDoneAction = createAction<IDeleteProductResponse>(
+  `${PRODUCT_PREFIX}/API/DELETE_PRODUCT_DONE`,
 );

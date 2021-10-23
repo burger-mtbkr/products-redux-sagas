@@ -9,23 +9,25 @@ import {
   isLoading,
 } from 'src/actions';
 
-export function* fetchAllProductsSaga(): SagaIterator {
-  yield put(isLoading(true));
-  yield takeLatest(fetchAllProductsAction, function* (): SagaIterator {
-    try {
-      const response: IFetchProductResponse = yield call(getAllProducts);
+export function* fetchAllProductsAsync(): SagaIterator {
+  try {
+    yield put(isLoading(true));
+    const response: IFetchProductResponse = yield call(getAllProducts);
 
-      yield put(fetchAllProductsDoneAction(response));
-    } catch (error) {
-      yield put(
-        fetchAllProductsDoneAction({
-          products: [],
-          error: error as Error,
-          isSuccessful: false,
-        }),
-      );
-    } finally {
-      yield put(isLoading(false));
-    }
-  });
+    yield put(fetchAllProductsDoneAction(response));
+  } catch (error) {
+    yield put(
+      fetchAllProductsDoneAction({
+        products: [],
+        error: error as Error,
+        isSuccessful: false,
+      }),
+    );
+  } finally {
+    yield put(isLoading(false));
+  }
+}
+
+export function* fetchAllProductsSaga(): SagaIterator {
+  yield takeLatest(fetchAllProductsAction, fetchAllProductsAsync);
 }

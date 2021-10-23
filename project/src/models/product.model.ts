@@ -20,7 +20,13 @@ export interface IFetchProductResponse {
 }
 
 export interface ISaveProductResponse {
-  product?: Product;
+  product: Product | undefined;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface IDeleteProductResponse {
+  id: string;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
 }
@@ -29,9 +35,11 @@ export interface IProductState {
   deleteModalOpen: boolean;
   isLoading: boolean;
   isSaving: boolean;
+  isDeleting: boolean;
   productListResponse?: IFetchProductResponse;
   selectedProducts: ProductListItem[];
   productSaveResponse?: ISaveProductResponse;
+  deleteProductResponse?: IDeleteProductResponse;
 }
 
 export const productSchema: SchemaOf<Product> = yup

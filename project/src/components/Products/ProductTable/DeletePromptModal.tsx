@@ -6,8 +6,13 @@ import { TestIds } from 'src/utils';
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDeleteModalOpenAction } from 'src/actions';
-import { getDeleteModalOpen, getSelectedProducts } from 'src/selectors';
+import { deleteProductAction, setDeleteModalOpenAction } from 'src/actions';
+import {
+  getDeleteModalOpen,
+  getDeleteProductResponse,
+  getSelectedProducts,
+} from 'src/selectors';
+import { useEffect } from 'react';
 
 const style: SxProps<Theme> = {
   position: 'absolute',
@@ -23,18 +28,26 @@ const style: SxProps<Theme> = {
 
 const DeletePromptModal = () => {
   const dispatch = useDispatch();
-
   const isOpen = useSelector(getDeleteModalOpen);
   const selectedProducts = useSelector(getSelectedProducts);
+  const deleteResponse = useSelector(getDeleteProductResponse);
 
   const onDeleteProducts = () => {
     const { id } = selectedProducts[0];
-    alert(`Will delete Id: ${id}`);
+    dispatch(deleteProductAction(id));
   };
 
   const handleClose = () => {
     dispatch(setDeleteModalOpenAction(false));
   };
+
+  useEffect(() => {
+    if (deleteResponse?.isSuccessful === true) {
+      dispatch(setDeleteModalOpenAction(false));
+    } else if (deleteResponse?.isSuccessful === false) {
+      alert(`Failed to save`);
+    }
+  }, [deleteResponse, dispatch]);
 
   return (
     <div>

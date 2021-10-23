@@ -1,4 +1,9 @@
-import { ISaveProductResponse, Product, ProductListItem } from 'src/models';
+import {
+  IDeleteProductResponse,
+  ISaveProductResponse,
+  Product,
+  ProductListItem,
+} from 'src/models';
 import { TStoreState } from 'src/reducers';
 
 export const getProductsLoadingState = (state: TStoreState): boolean =>
@@ -24,3 +29,7 @@ export const getEditProduct = (state: TStoreState): Product | undefined =>
 
 export const getDeleteModalOpen = (state: TStoreState): boolean =>
   state.product.deleteModalOpen;
+
+export const getDeleteProductResponse = (
+  state: TStoreState,
+): IDeleteProductResponse | undefined => state.product.deleteProductResponse;

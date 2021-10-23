@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects';
-import { fetchAllProductsSaga } from 'src/sagas/fetchProducts.saga';
+import { fetchAllProductsSaga } from './fetchProducts.saga';
+import { deleteProductSaga } from './deleteProduct.saga';
 import { saveProductSaga } from './saveProduct.saga';
 
 export default function* rootSaga() {
-  yield all([fetchAllProductsSaga(), saveProductSaga()]);
+  yield all([deleteProductSaga(), fetchAllProductsSaga(), saveProductSaga()]);
 }
