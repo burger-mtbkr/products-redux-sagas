@@ -1,6 +1,6 @@
 import {
   IFetchProductResponse,
-  ISaveProductResponse,
+  IProductResponse,
   Product,
   ProductListItem,
   IDeleteProductResponse,
@@ -47,7 +47,7 @@ export const saveProductAction = createAction<Product>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT`,
 );
 
-export const setSaveProductDoneAction = createAction<ISaveProductResponse>(
+export const setSaveProductDoneAction = createAction<IProductResponse>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_DONE`,
 );
 

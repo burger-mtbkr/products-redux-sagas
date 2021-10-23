@@ -1,6 +1,6 @@
 import {
   IDeleteProductResponse,
-  ISaveProductResponse,
+  IProductResponse,
   Product,
   ProductListItem,
 } from 'src/models';
@@ -20,7 +20,7 @@ export const selectIsSaving = (state: TStoreState): boolean =>
 
 export const getProductSaveResponse = (
   state: TStoreState,
-): ISaveProductResponse | undefined => state.product.productSaveResponse;
+): IProductResponse | undefined => state.product.productSaveResponse;
 
 export const getEditProduct = (state: TStoreState): Product | undefined =>
   state.product.selectedProducts.length > 0

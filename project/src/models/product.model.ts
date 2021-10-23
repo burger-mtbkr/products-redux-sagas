@@ -19,7 +19,7 @@ export interface IFetchProductResponse {
   isSuccessful?: boolean;
 }
 
-export interface ISaveProductResponse {
+export interface IProductResponse {
   product: Product | undefined;
   error?: AxiosError | Error;
   isSuccessful?: boolean;
@@ -38,7 +38,7 @@ export interface IProductState {
   isDeleting: boolean;
   productListResponse?: IFetchProductResponse;
   selectedProducts: ProductListItem[];
-  productSaveResponse?: ISaveProductResponse;
+  productSaveResponse?: IProductResponse;
   deleteProductResponse?: IDeleteProductResponse;
 }
 
