@@ -2,7 +2,9 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   fetchAllProductsDoneAction,
   isLoading,
+  isSavingAction,
   setDeleteModalOpenAction,
+  setSaveProductDoneAction,
   setSelectedProductsAction,
 } from 'src/actions';
 import { IProductState } from 'src/models/product.model';
@@ -10,7 +12,7 @@ import { IProductState } from 'src/models/product.model';
 export const productInitialState: IProductState = {
   deleteModalOpen: false,
   isLoading: false,
-  products: [],
+  isSaving: false,
   selectedProducts: [],
 };
 
@@ -22,7 +24,15 @@ export default createReducer(productInitialState, (builder) =>
     }))
     .addCase(fetchAllProductsDoneAction, (state, { payload }) => ({
       ...state,
-      products: payload,
+      productListResponse: payload,
+    }))
+    .addCase(setSaveProductDoneAction, (state, { payload }) => ({
+      ...state,
+      productSaveResponse: payload,
+    }))
+    .addCase(isSavingAction, (state, { payload }) => ({
+      ...state,
+      isSaving: payload,
     }))
     .addCase(setDeleteModalOpenAction, (state, { payload }) => ({
       ...state,

@@ -1,4 +1,9 @@
-import { Product, ProductListItem } from 'src/models/';
+import {
+  IFetchProductResponse,
+  ISaveProductResponse,
+  Product,
+  ProductListItem,
+} from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
 const APP_PREFIX = 'APP';
@@ -28,12 +33,8 @@ export const fetchAllProductsAction = createAction(
   `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS`,
 );
 
-export const fetchAllProductsDoneAction = createAction<ProductListItem[]>(
+export const fetchAllProductsDoneAction = createAction<IFetchProductResponse>(
   `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS_DONE`,
-);
-
-export const fetchAllProductsFailedAction = createAction<Error>(
-  `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS_FAILED`,
 );
 
 /* SAVE PRODUCT */
@@ -45,6 +46,6 @@ export const saveProductAction = createAction<Product>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT`,
 );
 
-export const saveProductActionFailed = createAction<Error>(
-  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_FAILED`,
+export const setSaveProductDoneAction = createAction<ISaveProductResponse>(
+  `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_DONE`,
 );

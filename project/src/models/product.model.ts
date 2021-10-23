@@ -13,11 +13,25 @@ export type ProductListItem = Product & {
   id: string;
 };
 
+export interface IFetchProductResponse {
+  products?: ProductListItem[];
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
+export interface ISaveProductResponse {
+  product?: Product;
+  error?: AxiosError | Error;
+  isSuccessful?: boolean;
+}
+
 export interface IProductState {
   deleteModalOpen: boolean;
   isLoading: boolean;
-  products: ProductListItem[];
+  isSaving: boolean;
+  productListResponse?: IFetchProductResponse;
   selectedProducts: ProductListItem[];
+  productSaveResponse?: ISaveProductResponse;
 }
 
 export const productSchema: SchemaOf<Product> = yup
@@ -33,9 +47,3 @@ export const productSchema: SchemaOf<Product> = yup
       .required('Price is required'),
   })
   .required();
-
-export interface IProductResponse {
-  product?: Product;
-  error?: AxiosError | Error;
-  isSuccessful?: boolean;
-}
