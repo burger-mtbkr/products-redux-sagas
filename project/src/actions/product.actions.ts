@@ -7,26 +7,19 @@ import {
 } from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
-const APP_PREFIX = 'APP';
 const PRODUCT_PREFIX = 'PRODUCT';
 
 /* APP STATE */
-
 export const setDeleteModalOpenAction = createAction<boolean>(
-  `${APP_PREFIX}_SET_DELETE_MODAL_OPEN`,
-);
-
-export const setHeaderTitleAction = createAction<string>(
-  `APP_${APP_PREFIX}_SET_HEADER_TITLE`,
+  `${PRODUCT_PREFIX}_SET_DELETE_MODAL_OPEN`,
 );
 
 /* LOAD ALL PRODUCTS */
-
 export const setSelectedProductsAction = createAction<ProductListItem[]>(
   `${PRODUCT_PREFIX}_SET_SELECTED_PRODUCTS`,
 );
 
-export const isLoading = createAction<boolean>(
+export const isLoadingAction = createAction<boolean>(
   `${PRODUCT_PREFIX}/API/PRODUCTS_IS_LOADING`,
 );
 
