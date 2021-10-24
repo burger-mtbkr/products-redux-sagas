@@ -14,7 +14,6 @@ export const setDeleteModalOpenAction = createAction<boolean>(
   `${PRODUCT_PREFIX}_SET_DELETE_MODAL_OPEN`,
 );
 
-/* LOAD ALL PRODUCTS */
 export const setSelectedProductsAction = createAction<ProductListItem[]>(
   `${PRODUCT_PREFIX}_SET_SELECTED_PRODUCTS`,
 );
@@ -23,6 +22,16 @@ export const isLoadingAction = createAction<boolean>(
   `${PRODUCT_PREFIX}/API/PRODUCTS_IS_LOADING`,
 );
 
+/* LOAD PRODUCT */
+export const fetchProductAction = createAction<string>(
+  `${PRODUCT_PREFIX}/API/FETCH_PRODUCT`,
+);
+
+export const fetchProductDoneAction = createAction<IProductResponse>(
+  `${PRODUCT_PREFIX}/API/FETCH_PRODUCT_DONE`,
+);
+
+/* LOAD ALL PRODUCTS */
 export const fetchAllProductsAction = createAction(
   `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS`,
 );
