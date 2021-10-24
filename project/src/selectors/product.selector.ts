@@ -1,6 +1,6 @@
 import {
   IDeleteProductResponse,
-  ISaveProductResponse,
+  IProductResponse,
   Product,
   ProductListItem,
 } from 'src/models';
@@ -15,17 +15,17 @@ export const selectAllProducts = (state: TStoreState): ProductListItem[] =>
 export const getSelectedProducts = (state: TStoreState): ProductListItem[] =>
   state.product.selectedProducts;
 
+export const getEditProduct = (state: TStoreState): Product | undefined =>
+  state.product.selectedProducts.length > 0
+    ? state.product.selectedProducts[0]
+    : undefined;
+
 export const selectIsSaving = (state: TStoreState): boolean =>
   state.product.isSaving;
 
 export const getProductSaveResponse = (
   state: TStoreState,
-): ISaveProductResponse | undefined => state.product.productSaveResponse;
-
-export const getEditProduct = (state: TStoreState): Product | undefined =>
-  state.product.selectedProducts.length > 0
-    ? state.product.selectedProducts[0]
-    : undefined;
+): IProductResponse | undefined => state.product.productSaveResponse;
 
 export const getDeleteModalOpen = (state: TStoreState): boolean =>
   state.product.deleteModalOpen;

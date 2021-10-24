@@ -1,35 +1,37 @@
 import {
   IFetchProductResponse,
-  ISaveProductResponse,
+  IProductResponse,
   Product,
   ProductListItem,
   IDeleteProductResponse,
 } from 'src/models/';
 import { createAction } from '@reduxjs/toolkit';
 
-const APP_PREFIX = 'APP';
 const PRODUCT_PREFIX = 'PRODUCT';
 
 /* APP STATE */
-
 export const setDeleteModalOpenAction = createAction<boolean>(
-  `${APP_PREFIX}_SET_DELETE_MODAL_OPEN`,
+  `${PRODUCT_PREFIX}_SET_DELETE_MODAL_OPEN`,
 );
-
-export const setHeaderTitleAction = createAction<string>(
-  `APP_${APP_PREFIX}_SET_HEADER_TITLE`,
-);
-
-/* LOAD ALL PRODUCTS */
 
 export const setSelectedProductsAction = createAction<ProductListItem[]>(
   `${PRODUCT_PREFIX}_SET_SELECTED_PRODUCTS`,
 );
 
-export const isLoading = createAction<boolean>(
+export const isLoadingAction = createAction<boolean>(
   `${PRODUCT_PREFIX}/API/PRODUCTS_IS_LOADING`,
 );
 
+/* LOAD PRODUCT */
+export const fetchProductAction = createAction<string>(
+  `${PRODUCT_PREFIX}/API/FETCH_PRODUCT`,
+);
+
+export const fetchProductDoneAction = createAction<IProductResponse>(
+  `${PRODUCT_PREFIX}/API/FETCH_PRODUCT_DONE`,
+);
+
+/* LOAD ALL PRODUCTS */
 export const fetchAllProductsAction = createAction(
   `${PRODUCT_PREFIX}/API/FETCH_ALL_PRODUCTS`,
 );
@@ -47,7 +49,7 @@ export const saveProductAction = createAction<Product>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT`,
 );
 
-export const setSaveProductDoneAction = createAction<ISaveProductResponse>(
+export const setSaveProductDoneAction = createAction<IProductResponse>(
   `${PRODUCT_PREFIX}/API/SAVE_PRODUCT_DONE`,
 );
 

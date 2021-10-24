@@ -44,10 +44,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 20,
-        "branches": 3,
-        "lines": 20,
-        "functions": 20
+        "statements": 59,
+        "branches": 48,
+        "functions": 58,
+        "lines": 60
       }
     },
     "moduleNameMapper": {
@@ -70,6 +70,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^12.1.10",
     "@types/axios": "^0.14.0",
+    "@types/axios-mock-adapter": "^1.10.0",
     "@types/jest": "^27.0.2",
     "@types/node": "16.7.13",
     "@types/react": "^17.0.30",
@@ -78,6 +79,7 @@
     "@types/redux-mock-store": "^1.0.3",
     "@types/yup": "^0.29.13",
     "axios": "^0.23.0",
+    "axios-mock-adapter": "^1.20.0",
     "env-cmd": "^10.1.0",
     "history": "^5.0.1",
     "jest-cli": "^27.3.0",

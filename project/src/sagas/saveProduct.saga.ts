@@ -1,6 +1,6 @@
 import { SagaIterator } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { ISaveProductResponse, Product } from 'src/models';
+import { IProductResponse, Product } from 'src/models';
 import { saveProduct } from 'src/api';
 import {
   saveProductAction,
@@ -12,10 +12,7 @@ export function* saveProductAsync(action: { payload: Product }): SagaIterator {
   try {
     yield put(isSavingAction(true));
 
-    const response: ISaveProductResponse = yield call(
-      saveProduct,
-      action.payload,
-    );
+    const response: IProductResponse = yield call(saveProduct, action.payload);
     yield put(setSaveProductDoneAction(response));
   } catch (error) {
     yield put(

@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   fetchAllProductsDoneAction,
   isDeletingAction,
-  isLoading as isLoadingAction,
+  isLoadingAction,
   isSavingAction,
   setDeleteModalOpenAction,
   setDeleteProductDoneAction,
@@ -25,6 +25,18 @@ export default createReducer(productInitialState, (builder) =>
       ...state,
       isLoading: payload,
     }))
+    .addCase(isSavingAction, (state, { payload }) => ({
+      ...state,
+      isSaving: payload,
+    }))
+    .addCase(isDeletingAction, (state, { payload }) => ({
+      ...state,
+      isDeleting: payload,
+    }))
+    .addCase(setDeleteModalOpenAction, (state, { payload }) => ({
+      ...state,
+      deleteModalOpen: payload,
+    }))
     .addCase(setSelectedProductsAction, (state, { payload }) => ({
       actionTriggerRefetching: undefined,
       ...state,
@@ -37,18 +49,6 @@ export default createReducer(productInitialState, (builder) =>
     .addCase(setSaveProductDoneAction, (state, { payload }) => ({
       ...state,
       productSaveResponse: payload,
-    }))
-    .addCase(isSavingAction, (state, { payload }) => ({
-      ...state,
-      isSaving: payload,
-    }))
-    .addCase(setDeleteModalOpenAction, (state, { payload }) => ({
-      ...state,
-      deleteModalOpen: payload,
-    }))
-    .addCase(isDeletingAction, (state, { payload }) => ({
-      ...state,
-      isDeleting: payload,
     }))
     .addCase(setDeleteProductDoneAction, (state, { payload }) => ({
       ...state,
